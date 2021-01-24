@@ -88,12 +88,12 @@ def weighted_mid(instrument_id):
         weighted_mid = (bidslist[0].price_level)*bid_weight+(asklist[0].price_level)*ask_weight
         return round(weighted_mid,1)
     except:
-        return MAX_VALUE,bidslist,asklist
+        return MAX_VALUE
 
 
 
 # within each iteration:
-def trade(bidlist, asklist):
+def trade():
     print("start trading")
     current_pnl = e.get_pnl()
     pnl_trend = []
@@ -107,9 +107,9 @@ def trade(bidlist, asklist):
         bid_price = 0
         while True:
             while price_a == MAX_VALUE:
-                price_a,bidslist_a,askslist_a = weighted_mid(instrument_id_A)
+                price_a = weighted_mid(instrument_id_A)
             while price_b == MAX_VALUE:
-                price_b,bidslist_b,askslist_b = weighted_mid(instrument_id_B)
+                price_b = weighted_mid(instrument_id_B)
               
             # Compare philips A and B, which one is higher, we will ask the higher one
             if price_a > price_b: 
@@ -150,33 +150,14 @@ def trade(bidlist, asklist):
             #     pnl_trend.append(new_pnl)
                 
           
-    def hackout():
+
         
         
 
 # check if function is making extended losses over time 
-def stop_function():
-    print("WE ARE MAKING LOSSES!")
-    exit()
+    def stop_function():
+        print("WE ARE MAKING LOSSES!")
+        exit()
 
 
 trade()
-
-
-
-# while True:
-#     clear_output(wait=True)
-#     time.sleep(0.01)
-#     print(pnl_trend)
-
-            # 5 orders, different volumes and prices for each
-        
-            # while ask_price == 1000000:
-        #         ask_price = weighted_mid()
-        #     ask_prices.append(ask_price)
-        #     time.sleep(WAITING_TIME)
-        #     t += WAITING_TIME
-        # ask_order_price = min(ask_prices)
-        # order_volume = FIXED_VOLUME
-        # Buy (ask) from the weighted_mid
-        # ask_result = e.insert_order(instrument_id, price=ask_order_price, volume=FIXED_VOLUME, side='ask', order_type='limit')
