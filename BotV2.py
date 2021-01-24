@@ -57,6 +57,8 @@ def weighted_mid(instrument_id):
         ask_weight = asks_vol/(bids_vol+asks_vol)
         # weighted_mid = (bidslist[0].price_level)*bid_weight+(asklist[0].price_level)*ask_weight
         weighted_mid = (bidslist[0].price_level)*bid_weight+(asklist[0].price_level)*ask_weight
+        
+        print(weighted_mid)
 
         return round(weighted_mid,2), bidslist, asklist
     except:
@@ -101,28 +103,29 @@ def hedge(transaction, illiquid_instrument, a, b):
             price_lel = 1
             
         if illiquid_instrument == instrument_id_A:
+            
             hedge_result = e.insert_order(instrument_id_B,price=price_lel,volume=abs(transaction), side=action, order_type='ioc')
         if illiquid_instrument == instrument_id_B:
             hedge_result = e.insert_order(instrument_id_A,price=price_lel, volume=abs(transaction), side=action, order_type='ioc')
             
-            
+        # if illiquid_instrument == instrument_id_A:
         #     if a == 'overvalued':
         #         for i in range(1,6):
-        #             hedge_result = e.insert_order(instrument_id_B,price=1,volume=transaction, side='ask', order_type='ioc')
+        #             hedge_result = e.insert_order(instrument_id_B,price=1,volume=abs(transaction), side='bid', order_type='ioc')
     
         #     if a == 'undervalued':
         #         for i in range(1,6):
-        #             hedge_result = e.insert_order(instrument_id_B,price=10000,volume=transaction, side='bid', order_type='ioc')
+        #             hedge_result = e.insert_order(instrument_id_B,price=10000,volume=abs(transaction), side='ask', order_type='ioc')
                        
         
         # if illiquid_instrument == instrument_id_B:
         #     if b == 'overvalued':
         #         for i in range(1,6):
-        #             hedge_result = e.insert_order(instrument_id_A,price=1, volume=transaction, side='ask', order_type='ioc')
+        #             hedge_result = e.insert_order(instrument_id_A,price=1, volume=abs(transaction), side='bid', order_type='ioc')
                    
         #     if b == 'undervalued':
         #         for i in range(1,6):
-        #             hedge_result = e.insert_order(instrument_id_A,price=10000, volume=transaction, side='bid', order_type='ioc')
+        #             hedge_result = e.insert_order(instrument_id_A,price=10000, volume=abs(transaction), side='ask', order_type='ioc')
                     
                         
     
@@ -207,7 +210,7 @@ def trade():
             positions = e.get_positions()
             for p in positions:
                 print(p, positions[p])
-            hedge(transaction,illiquid_instrument,a,b)
+            #hedge(transaction,illiquid_instrument,a,b)
             
             
             # new_pnl = e.get_pnl()
@@ -222,11 +225,5 @@ def trade():
             #     pnl_trend.append(new_pnl)
             
             
-
- 
-    
-            
-
-
     
 trade() 

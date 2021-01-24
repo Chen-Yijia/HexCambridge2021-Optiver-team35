@@ -111,17 +111,17 @@ def trade():
             while price_b == MAX_VALUE:
                 price_b = weighted_mid(instrument_id_B)
               
-            # Compare philips A and B, which one is higher, we will ask the higher one
+            # Compare philips A and B, which one is higher, we will buy the higher one
             if price_a > price_b: 
-                ask_id = instrument_id_A
-                bid_id = instrument_id_B
-                ask_price = price_a
-                bid_price = price_b
-            else: 
-                ask_id = instrument_id_B
                 bid_id = instrument_id_A
-                ask_price = price_b
+                ask_id = instrument_id_B
                 bid_price = price_a
+                ask_price = price_b
+            else: 
+                bid_id = instrument_id_B
+                ask_id = instrument_id_A
+                bid_price = price_b
+                ask_price = price_a
             
             for i in range(1,6):
                 ask_result = e.insert_order(ask_id,price=ask_price,volume=1*i,side='ask', order_type='limit')
